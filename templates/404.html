@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block titulo %}Não encontrado · {{ block.super }}{% endblock %}
+{% block conteudo %}
+<section class="painel painel--estreito">
+    <p class="rotulo">Erro 404</p>
+    <h1>Conteúdo não encontrado</h1>
+    <p>A página solicitada não existe ou não está disponível.</p>
+    <a class="botao" href="{% url 'monitoria:lista_duvidas' %}">Voltar</a>
+</section>
+{% endblock %}

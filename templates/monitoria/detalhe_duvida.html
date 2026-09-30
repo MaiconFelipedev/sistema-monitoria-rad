@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block titulo %}{{ duvida.titulo }} · {{ block.super }}{% endblock %}
+
+{% block conteudo %}
+<article class="painel detalhe">
+    <div class="card__topo">
+        <span class="etiqueta">{{ duvida.disciplina.codigo }} · {{ duvida.disciplina.nome }}</span>
+        <span class="status status--{{ duvida.situacao|lower }}">{{ duvida.get_situacao_display }}</span>
+    </div>
+    <h1>{{ duvida.titulo }}</h1>
+    <p class="meta">
+        Aberta por {{ duvida.autor.username }} em {{ duvida.aberta_em|date:"d/m/Y H:i" }}
+    </p>
+
+    <section class="bloco-texto">
+        <h2>Descrição</h2>
+        {{ duvida.descricao|linebreaks }}
+    </section>
+
+    {% if duvida.monitor_responsavel %}
+        <p><strong>Monitor responsável:</strong> {{ duvida.monitor_responsavel.username }}</p>
+    {% endif %}
+
+    {% if duvida.resposta %}
+        <section class="resposta">
+            <h2>Resposta</h2>
+            {{ duvida.resposta|linebreaks }}
+        </section>
+    {% endif %}
+
+    {% if pode_assumir %}
+        <form method="post" action="{% url 'monitoria:assumir' duvida.pk %}">
+            {% csrf_token %}
+            <button class="botao" type="submit">Assumir atendimento</button>
+        </form>
+    {% endif %}
+
+    {% if pode_responder %}
+        <form class="formulario resposta-form" method="post" action="{% url 'monitoria:responder' duvida.pk %}">
+            {% csrf_token %}
+            <div class="campo">
+                {{ form_resposta.resposta.label_tag }}
+                {{ form_resposta.resposta }}
+            </div>
+            <button class="botao" type="submit">Enviar resposta</button>
+        </form>
+    {% endif %}
+
+    {% if pode_encerrar %}
+        <form method="post" action="{% url 'monitoria:encerrar' duvida.pk %}">
+            {% csrf_token %}
+            <button class="botao botao--sucesso" type="submit">Confirmar resolução e encerrar</button>
+        </form>
+    {% endif %}
+</article>
+
+<p><a href="{% url 'monitoria:lista_duvidas' %}">← Voltar para a lista</a></p>
+{% endblock %}

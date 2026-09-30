@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block titulo %}Acesso negado · {{ block.super }}{% endblock %}
+{% block conteudo %}
+<section class="painel painel--estreito">
+    <p class="rotulo">Erro 403</p>
+    <h1>Acesso negado</h1>
+    <p>Seu usuário não possui autorização para executar esta ação.</p>
+    <a class="botao" href="{% url 'monitoria:lista_duvidas' %}">Voltar</a>
+</section>
+{% endblock %}

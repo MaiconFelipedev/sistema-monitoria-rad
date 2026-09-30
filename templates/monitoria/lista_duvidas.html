@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block titulo %}Dúvidas · {{ block.super }}{% endblock %}
+
+{% block conteudo %}
+<div class="cabecalho-pagina">
+    <div>
+        <p class="rotulo">Visão de {{ papel }}</p>
+        <h1>Dúvidas</h1>
+        <p class="texto-suave">A lista abaixo respeita o seu papel no sistema.</p>
+    </div>
+    <a class="botao" href="{% url 'monitoria:abrir_duvida' %}">+ Abrir dúvida</a>
+</div>
+
+<section class="grade-cards">
+    {% for duvida in duvidas %}
+        <article class="card">
+            <div class="card__topo">
+                <span class="etiqueta">{{ duvida.disciplina.codigo }}</span>
+                <span class="status status--{{ duvida.situacao|lower }}">{{ duvida.get_situacao_display }}</span>
+            </div>
+            <h2><a href="{% url 'monitoria:detalhe_duvida' duvida.pk %}">{{ duvida.titulo }}</a></h2>
+            <p>{{ duvida.descricao|truncatewords:28 }}</p>
+            <p class="meta">
+                Autor: {{ duvida.autor.username }} · Atualizada em {{ duvida.atualizada_em|date:"d/m/Y H:i" }}
+            </p>
+        </article>
+    {% empty %}
+        <div class="estado-vazio">
+            <h2>Nenhuma dúvida nesta visão</h2>
+            <p>Abra uma nova dúvida ou entre com outra conta para testar os diferentes papéis.</p>
+        </div>
+    {% endfor %}
+</section>
+{% endblock %}

@@ -1,0 +1,220 @@
+:root {
+    color-scheme: light;
+    font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    color: #172033;
+    background: #f4f7fb;
+    line-height: 1.55;
+    --azul: #174ea6;
+    --azul-escuro: #103b7b;
+    --verde: #087f5b;
+    --borda: #d9e2ef;
+    --suave: #5d6b82;
+    --sombra: 0 12px 34px rgba(32, 55, 90, .09);
+}
+
+* { box-sizing: border-box; }
+
+body {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    min-height: 100vh;
+}
+
+a { color: var(--azul); }
+h1, h2 { line-height: 1.2; }
+h1 { font-size: clamp(1.8rem, 4vw, 2.5rem); margin: .25rem 0 .5rem; }
+h2 { font-size: 1.25rem; }
+
+.topo {
+    background: linear-gradient(120deg, #103b7b, #174ea6 70%, #2369c7);
+    color: white;
+    padding: 1rem;
+}
+
+.topo__conteudo {
+    align-items: center;
+    display: grid;
+    gap: 1rem 1.5rem;
+    grid-template-columns: auto 1fr auto;
+    margin: auto;
+    max-width: 1160px;
+}
+
+.marca {
+    align-items: center;
+    color: white;
+    display: inline-flex;
+    font-size: 1.15rem;
+    font-weight: 800;
+    gap: .65rem;
+    text-decoration: none;
+}
+
+.marca__icone {
+    align-items: center;
+    background: white;
+    border-radius: .55rem;
+    color: var(--azul);
+    display: inline-flex;
+    font-size: 1.15rem;
+    height: 2.2rem;
+    justify-content: center;
+    width: 2.2rem;
+}
+
+.menu, .usuario { align-items: center; display: flex; flex-wrap: wrap; gap: .55rem 1rem; }
+.menu a, .usuario a { color: white; }
+.usuario { justify-content: flex-end; }
+.usuario form { margin: 0; }
+
+.conteudo {
+    margin: 2.2rem auto;
+    width: min(1080px, calc(100% - 2rem));
+}
+
+.cabecalho-pagina {
+    align-items: end;
+    display: flex;
+    gap: 1rem;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+}
+
+.rotulo {
+    color: var(--azul);
+    font-size: .78rem;
+    font-weight: 800;
+    letter-spacing: .09em;
+    margin: 0;
+    text-transform: uppercase;
+}
+
+.texto-suave, .meta { color: var(--suave); }
+.meta { font-size: .9rem; }
+
+.painel, .card, .busca, .estado-vazio {
+    background: white;
+    border: 1px solid var(--borda);
+    border-radius: .85rem;
+    box-shadow: var(--sombra);
+    padding: clamp(1.15rem, 3vw, 1.7rem);
+}
+
+.painel--estreito { margin: auto; max-width: 620px; }
+.grade-cards { display: grid; gap: 1rem; }
+.card h2 { margin: .85rem 0 .4rem; }
+.card p:last-child { margin-bottom: 0; }
+
+.card__topo {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: .7rem;
+    justify-content: space-between;
+}
+
+.etiqueta, .status {
+    border-radius: 999px;
+    display: inline-block;
+    font-size: .78rem;
+    font-weight: 750;
+    padding: .28rem .65rem;
+}
+
+.etiqueta { background: #e8f0ff; color: #174ea6; }
+.status--aberta { background: #e7f5ff; color: #075985; }
+.status--em_atendimento { background: #fff3bf; color: #8a4b08; }
+.status--respondida { background: #d3f9d8; color: #166534; }
+.status--encerrada { background: #e5e7eb; color: #374151; }
+
+.duas-colunas {
+    align-items: start;
+    display: grid;
+    gap: 1.25rem;
+    grid-template-columns: minmax(0, 1.45fr) minmax(280px, .75fr);
+}
+
+.campo { margin-bottom: 1.15rem; }
+.campo label, .busca label { display: block; font-weight: 750; margin-bottom: .38rem; }
+
+.campo input, .campo textarea, .campo select, .busca input {
+    background: #fff;
+    border: 1px solid #aebbd0;
+    border-radius: .55rem;
+    font: inherit;
+    padding: .7rem .8rem;
+    transition: border-color .15s ease, box-shadow .15s ease;
+    width: 100%;
+}
+
+.campo textarea { resize: vertical; }
+.campo input:focus, .campo textarea:focus, .campo select:focus, .busca input:focus {
+    border-color: #3974c7;
+    box-shadow: 0 0 0 3px rgba(57, 116, 199, .16);
+    outline: none;
+}
+
+.ajuda { color: var(--suave); font-size: .87rem; margin-top: .35rem; }
+.ajuda ul { padding-left: 1.2rem; }
+.erros, .errorlist { color: #b42318; }
+
+.botao {
+    background: var(--azul);
+    border: 0;
+    border-radius: .55rem;
+    color: white;
+    cursor: pointer;
+    display: inline-block;
+    font: inherit;
+    font-weight: 750;
+    padding: .65rem 1rem;
+    text-decoration: none;
+}
+
+.botao:hover { background: var(--azul-escuro); }
+.botao--claro { background: white; color: var(--azul-escuro) !important; }
+.botao--compacto { padding: .42rem .7rem; }
+.botao--secundario { background: #e7edf6; color: #24344d; }
+.botao--sucesso { background: var(--verde); }
+.acoes { align-items: center; display: flex; flex-wrap: wrap; gap: .7rem; }
+
+.mensagens { margin: 1rem auto 0; width: min(1080px, calc(100% - 2rem)); }
+.mensagem { border-radius: .6rem; padding: .75rem 1rem; }
+.mensagem--success { background: #d3f9d8; color: #166534; }
+.mensagem--error { background: #fee2e2; color: #991b1b; }
+.mensagem--info { background: #e7f5ff; color: #075985; }
+
+.lista-limpa { list-style: none; margin: 0; padding: 0; }
+.lista-limpa li { border-bottom: 1px solid var(--borda); padding: .75rem 0; }
+.lista-limpa li:last-child { border-bottom: 0; }
+.bloco-texto { border-top: 1px solid var(--borda); margin-top: 1.2rem; padding-top: .8rem; }
+.resposta { background: #edf9f4; border-left: 4px solid var(--verde); border-radius: .5rem; margin: 1.25rem 0; padding: 1rem 1.2rem; }
+.resposta-form { border-top: 1px solid var(--borda); margin-top: 1.4rem; padding-top: 1.2rem; }
+
+.busca { margin-bottom: 1rem; }
+.busca__linha { display: flex; gap: .65rem; }
+.busca__linha input { flex: 1; }
+
+.rodape {
+    background: #e7edf6;
+    color: #4a5870;
+    margin-top: auto;
+    padding: 1.4rem 1rem;
+    text-align: center;
+}
+
+@media (max-width: 900px) {
+    .topo__conteudo { grid-template-columns: 1fr auto; }
+    .menu { grid-column: 1 / -1; grid-row: 2; }
+    .duas-colunas { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 620px) {
+    .topo__conteudo { grid-template-columns: 1fr; }
+    .menu, .usuario { justify-content: flex-start; }
+    .menu { grid-column: auto; grid-row: auto; }
+    .cabecalho-pagina { align-items: stretch; flex-direction: column; }
+    .cabecalho-pagina .botao { text-align: center; }
+    .busca__linha { flex-direction: column; }
+}

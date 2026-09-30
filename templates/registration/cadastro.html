@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block titulo %}Criar conta · {{ block.super }}{% endblock %}
+
+{% block conteudo %}
+<section class="painel painel--estreito">
+    <p class="rotulo">Novo aluno</p>
+    <h1>Criar conta</h1>
+    <p class="texto-suave">A nova conta entrará somente no grupo de alunos.</p>
+
+    <form method="post" class="formulario">
+        {% csrf_token %}
+        {% for field in form %}
+            <div class="campo">
+                {{ field.label_tag }}
+                {{ field }}
+                {% if field.help_text %}<div class="ajuda">{{ field.help_text }}</div>{% endif %}
+                {% if field.errors %}<div class="erros">{{ field.errors }}</div>{% endif %}
+            </div>
+        {% endfor %}
+        <button class="botao" type="submit">Criar conta</button>
+    </form>
+</section>
+{% endblock %}

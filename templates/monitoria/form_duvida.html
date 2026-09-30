@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block titulo %}Abrir dúvida · {{ block.super }}{% endblock %}
+
+{% block conteudo %}
+<div class="cabecalho-pagina">
+    <div>
+        <p class="rotulo">Novo atendimento</p>
+        <h1>Abrir dúvida</h1>
+        <p class="texto-suave">Você informa a dúvida; autor e situação são preenchidos pelo sistema.</p>
+    </div>
+</div>
+
+<div class="duas-colunas">
+    <form method="post" class="painel formulario">
+        {% csrf_token %}
+        {% for field in form %}
+            <div class="campo">
+                {{ field.label_tag }}
+                {{ field }}
+                {% if field.errors %}<div class="erros">{{ field.errors }}</div>{% endif %}
+            </div>
+        {% endfor %}
+        <div class="acoes">
+            <button class="botao" type="submit">Registrar dúvida</button>
+            <a class="botao botao--secundario" href="{% url 'monitoria:lista_duvidas' %}">Cancelar</a>
+        </div>
+    </form>
+
+    <aside class="painel">
+        <p class="rotulo">Desafio opcional</p>
+        <h2>Horários dos monitores</h2>
+        <ul class="lista-limpa">
+            {% for horario in horarios %}
+                <li>
+                    <strong>{{ horario.disciplina.codigo }}</strong><br>
+                    {{ horario.get_dia_semana_display }}, {{ horario.hora_inicio|time:"H:i" }}–{{ horario.hora_fim|time:"H:i" }}<br>
+                    <span class="texto-suave">Monitor: {{ horario.monitor.username }}</span>
+                </li>
+            {% empty %}
+                <li>Nenhum horário cadastrado.</li>
+            {% endfor %}
+        </ul>
+    </aside>
+</div>
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block titulo %}Horários · {{ block.super }}{% endblock %}
+
+{% block conteudo %}
+<div class="cabecalho-pagina">
+    <div>
+        <p class="rotulo">Desafio opcional</p>
+        <h1>Meus horários de atendimento</h1>
+        <p class="texto-suave">Cadastre apenas horários das disciplinas que você monitora.</p>
+    </div>
+</div>
+
+<div class="duas-colunas">
+    <form method="post" class="painel formulario">
+        {% csrf_token %}
+        {% for field in form %}
+            <div class="campo">
+                {{ field.label_tag }}
+                {{ field }}
+                {% if field.errors %}<div class="erros">{{ field.errors }}</div>{% endif %}
+            </div>
+        {% endfor %}
+        <button class="botao" type="submit">Cadastrar horário</button>
+    </form>
+
+    <section class="painel">
+        <h2>Horários cadastrados</h2>
+        <ul class="lista-limpa">
+            {% for horario in horarios %}
+                <li>
+                    <strong>{{ horario.disciplina.codigo }}</strong><br>
+                    {{ horario.get_dia_semana_display }} · {{ horario.hora_inicio|time:"H:i" }}–{{ horario.hora_fim|time:"H:i" }}
+                </li>
+            {% empty %}
+                <li>Você ainda não cadastrou horários.</li>
+            {% endfor %}
+        </ul>
+    </section>
+</div>
+{% endblock %}

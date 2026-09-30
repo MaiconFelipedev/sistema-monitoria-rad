@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block titulo %}Base de conhecimento · {{ block.super }}{% endblock %}
+
+{% block conteudo %}
+<div class="cabecalho-pagina">
+    <div>
+        <p class="rotulo">Conteúdo compartilhado</p>
+        <h1>Base de conhecimento</h1>
+        <p class="texto-suave">Somente dúvidas respondidas ou encerradas aparecem aqui.</p>
+    </div>
+</div>
+
+<form class="busca" method="get" role="search">
+    <label for="id_q">Buscar no título ou na descrição</label>
+    <div class="busca__linha">
+        <input id="id_q" type="search" name="q" value="{{ termo }}" placeholder="Ex.: migrations">
+        <button class="botao" type="submit">Buscar</button>
+    </div>
+</form>
+
+<section class="grade-cards">
+    {% for duvida in duvidas %}
+        <article class="card">
+            <div class="card__topo">
+                <span class="etiqueta">{{ duvida.disciplina.codigo }}</span>
+                <span class="status status--{{ duvida.situacao|lower }}">{{ duvida.get_situacao_display }}</span>
+            </div>
+            <h2><a href="{% url 'monitoria:detalhe_duvida' duvida.pk %}">{{ duvida.titulo }}</a></h2>
+            <p><strong>Dúvida:</strong> {{ duvida.descricao }}</p>
+            <p><strong>Resposta:</strong> {{ duvida.resposta }}</p>
+        </article>
+    {% empty %}
+        <div class="estado-vazio"><p>Nenhum resultado encontrado.</p></div>
+    {% endfor %}
+</section>
+{% endblock %}

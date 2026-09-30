@@ -1,0 +1,7 @@
+from django.apps import AppConfig
+
+
+class MonitoriaConfig(AppConfig):
+    default_auto_field = 'django.db.models.BigAutoField'
+    name = 'monitoria'
+    verbose_name = 'Sistema de Monitoria'

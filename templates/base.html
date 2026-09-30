@@ -1,0 +1,60 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block titulo %}Apoio à Monitoria{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/app.css' %}">
+</head>
+<body>
+    <header class="topo">
+        <div class="topo__conteudo">
+            <a class="marca" href="{% url 'monitoria:lista_duvidas' %}">
+                <span class="marca__icone">?</span>
+                <span>Apoio à Monitoria</span>
+            </a>
+
+            <nav class="menu" aria-label="Navegação principal">
+                {% if user.is_authenticated %}
+                    <a href="{% url 'monitoria:lista_duvidas' %}">Minhas dúvidas</a>
+                    <a href="{% url 'monitoria:abrir_duvida' %}">Abrir dúvida</a>
+                    <a href="{% url 'monitoria:base_conhecimento' %}">Base de conhecimento</a>
+                    {% if eh_monitor %}
+                        <a href="{% url 'monitoria:horarios' %}">Meus horários</a>
+                    {% endif %}
+                {% endif %}
+            </nav>
+
+            <div class="usuario">
+                {% if user.is_authenticated %}
+                    <span><strong>{{ user.username }}</strong> · {{ papel_usuario }}</span>
+                    <form method="post" action="{% url 'logout' %}">
+                        {% csrf_token %}
+                        <button class="botao botao--claro botao--compacto" type="submit">Sair</button>
+                    </form>
+                {% else %}
+                    <a href="{% url 'login' %}">Entrar</a>
+                    <a class="botao botao--claro" href="{% url 'monitoria:cadastro' %}">Criar conta</a>
+                {% endif %}
+            </div>
+        </div>
+    </header>
+
+    {% if messages %}
+        <section class="mensagens" aria-label="Mensagens do sistema">
+            {% for message in messages %}
+                <p class="mensagem mensagem--{{ message.tags|default:'info' }}">{{ message }}</p>
+            {% endfor %}
+        </section>
+    {% endif %}
+
+    <main class="conteudo">
+        {% block conteudo %}{% endblock %}
+    </main>
+
+    <footer class="rodape">
+        <div>Sistema de Apoio à Monitoria · RAD · IFPB · {% now "Y" %}</div>
+    </footer>
+</body>
+</html>
